@@ -8,19 +8,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Demo project</a>
+        <a class="navbar-brand" href="#">ItSpring</a>
         <div class="nav-collapse collapse">
-            <ul class="nav navbar-nav">
+            <%--<ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
-            </ul>
+            </ul>--%>
             <ul class="nav navbar-nav pull-right">
                 <security:authorize access="!isAuthenticated()">
-                    <li><a href='<s:url value="/signin"></s:url>'>Sign in</a></li>
+                    <li><a href='<s:url value="/signin"></s:url>'><s:message code="label.signin"/></a></li>
                 </security:authorize>
                 <security:authorize access="isAuthenticated()">
-                    <li><a href='<s:url value="/logout"></s:url>'>Logout (<security:authentication property="principal.username"/>)</a></li>
+                    <li><a href='<s:url value="/logout"></s:url>'><s:message code="label.logout"/> (<security:authentication property="principal.username"/>)</a></li>
                 </security:authorize>
             </ul>
         </div>

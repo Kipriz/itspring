@@ -3,5 +3,5 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <p>
-	Hello <security:authentication property="principal.username" />! Welcome to the ItSpring demo application!
+    <s:message code="view.index.message.hello" arguments="${username}" />
 </p>

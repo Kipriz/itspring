@@ -4,10 +4,9 @@
 <div class="hero-unit">
     <h1><s:message code="view.index.title" /></h1>
     <p>
-        Welcome to the ItSpring demo application!
-        Get started quickly	by signing in as user (user/demo) or administrator (admin/admin).
+        <s:message code="view.index.message.hello_not_authorized" htmlEscape="false"/>
     </p>
     <p>
-        <a href='<s:url value="/signin" />'class="btn btn-large btn-success">Sign in</a>
+        <a href='<s:url value="/signin" />'class="btn btn-large btn-success"><s:message code="label.signin"/></a>
     </p>
 </div>

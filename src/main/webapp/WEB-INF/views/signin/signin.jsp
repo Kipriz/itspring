@@ -4,35 +4,35 @@
 <form class="form-narrow form-horizontal" action='<s:url value="/j_spring_security_check"/>' method="post">
     <c:if test="${not empty param['error']}">
         <div class="alert alert-error">
-            Sign in error. Please try again.
+           <s:message code="view.signin.error.signin"/>
         </div>
     </c:if>
     <fieldset>
-        <legend>Please Sign In</legend>
+        <legend><s:message code="view.signin.label.please_sign_in"/></legend>
         <div class="form-group">
-            <label for="inputLogin" class="col-lg-2 control-label">Login</label>
+            <label for="inputLogin" class="col-lg-2 control-label"><s:message code="label.login"/></label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputLogin" placeholder="Login" name="j_username">
+                <input type="text" class="form-control" id="inputLogin" placeholder="<s:message code="label.login"/>" name="j_username">
             </div>
         </div>
         <div class="form-group">
-            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+            <label for="inputPassword" class="col-lg-2 control-label"><s:message code="label.password"/></label>
             <div class="col-lg-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="j_password">
+                <input type="password" class="form-control" id="inputPassword" placeholder="<s:message code="label.password"/>" name="j_password">
             </div>
         </div>
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="_spring_security_remember_me"> Remember me
+                        <input type="checkbox" name="_spring_security_remember_me"><s:message code="label.remember_me"/>
                     </label>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <button type="submit" class="btn btn-default">Sign in</button>
+                <button type="submit" class="btn btn-default"><s:message code="view.signin.button.signin"/></button>
             </div>
         </div>
     </fieldset>
