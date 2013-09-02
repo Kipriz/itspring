@@ -7,7 +7,7 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 	
 	<security:http auto-config="true" disable-url-rewriting="true" use-expressions="true">
-		<security:form-login login-page="/signin" authentication-failure-url="/signin?error=1"/>
+		<security:form-login login-page="/signin" authentication-failure-url="/signin?error=1" default-target-url="/chooseHome" always-use-default-target="true"/>
 		<security:logout logout-url="/logout" />
 		<security:remember-me services-ref="rememberMeServices" key="remember-me-key"/>
 		<security:intercept-url pattern="/" access="permitAll" />
@@ -16,6 +16,7 @@ http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 		<security:intercept-url pattern="/signup" access="permitAll" />
 		<security:intercept-url pattern="/default/**" access="permitAll" />
 		<security:intercept-url pattern="/**" access="isAuthenticated()" />
+        <security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')"/>
 	</security:http>
 	
 	<security:authentication-manager erase-credentials="true" >

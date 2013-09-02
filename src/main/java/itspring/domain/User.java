@@ -1,5 +1,7 @@
 package itspring.domain;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -77,7 +79,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<Role> getAuthorities() {
         return roles;
     }
 
@@ -108,5 +110,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean hasRole(final String roleCode) {
+        for (Role role : roles) {
+            if (role.getCode().equals(roleCode)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
