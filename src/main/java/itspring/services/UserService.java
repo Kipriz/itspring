@@ -23,12 +23,6 @@ public class UserService implements UserDetailsService {
     @Inject
     private UserRepository userRepository;
 	
-	@PostConstruct	
-	protected void initialize() {
-		/* post construction initialization goes here */
-        /* for example, you can load some data */
-	}
-	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByLogin(username);
