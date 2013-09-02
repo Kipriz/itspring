@@ -5,5 +5,8 @@
 <tiles-definitions>
     <definition name="adminHome" extends="default">
         <put-attribute name="body" value="/WEB-INF/views/admin/adminHome.jsp"></put-attribute>
+        <put-list-attribute name="scripts">
+            <add-attribute value="adminApp.js"/>
+        </put-list-attribute>
     </definition>
 </tiles-definitions>

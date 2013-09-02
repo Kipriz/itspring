@@ -19,9 +19,6 @@
                 <security:authorize access="!isAuthenticated()">
                     <li><a href='<s:url value="/signin"></s:url>'><s:message code="label.signin"/></a></li>
                 </security:authorize>
-                <security:authorize access="isAuthenticated()">
-                    <li><a href='<s:url value="/logout"></s:url>'><s:message code="label.logout"/> (<security:authentication property="principal.username"/>)</a></li>
-                </security:authorize>
             </ul>
         </div>
         <!--/.nav-collapse -->

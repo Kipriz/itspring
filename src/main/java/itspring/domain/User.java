@@ -120,4 +120,13 @@ public class User implements UserDetails {
         }
         return false;
     }
+
+    public String[] getRoleNames() {
+        String[] names = new String[roles.size()];
+        for (int i = 0; i < roles.size(); i++) {
+            Role role = roles.get(i);
+            names[i] = role.getName();
+        }
+        return names;
+    }
 }

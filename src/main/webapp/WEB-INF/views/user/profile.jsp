@@ -2,7 +2,8 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
+<security:authentication property="principal.username" var="username"/>
+
 <p>
-    You are the user
     <s:message code="view.index.message.hello" arguments="${username}"/>
 </p>

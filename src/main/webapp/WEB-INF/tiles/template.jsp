@@ -4,12 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 	<title>ItSpring</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet" media="screen" />
 	<link href="<c:url value="/resources/css/core.css" />" rel="stylesheet" media="screen" />
 	
@@ -45,12 +47,28 @@
                 <s:message code="${message.message}" arguments="${message.args}" text="${message.message}" />
             </div>
         </c:if>
-		<tiles:insertAttribute name="body" defaultValue="" />
+        <div class="row">
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <tiles:insertAttribute name="body" defaultValue=""/>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <security:authorize access="isAuthenticated()">
+                    <tiles:insertTemplate template="/WEB-INF/tiles/profile-tile.jsp"/>
+                </security:authorize>
+            </div>
+
+        </div>
 	</div>
 	<!-- End of page content -->
 	<tiles:insertAttribute name="footer"  defaultValue="" />
 	
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+
+    <tilesx:useAttribute id="scripts" name="scripts" classname="java.util.List" ignore="true"/>
+    <c:forEach var="script" items="${scripts}">
+        <script src="<c:url value="/resources/coffee/js/${script}"/>"></script>
+    </c:forEach>
+
 </body>
 </html>

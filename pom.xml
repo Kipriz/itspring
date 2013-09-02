@@ -229,6 +229,25 @@
     </dependencies>
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>com.theoryinpractise</groupId>
+                <artifactId>coffee-maven-plugin</artifactId>
+                <version>1.4.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>coffee</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <coffeeDir>${basedir}/src/main/webapp/resources/coffee</coffeeDir>
+                    <coffeeOutputDirectory>${basedir}/src/main/webapp/resources/coffee/js</coffeeOutputDirectory>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
