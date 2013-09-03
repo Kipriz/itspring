@@ -1,5 +1,6 @@
 package itspring.services;
 
+import com.google.common.collect.Lists;
 import itspring.domain.User;
 import itspring.repositories.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class UserService implements UserDetailsService {
 	
@@ -36,5 +40,9 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
+    }
+
+    public List<User> findAll() {
+        return Lists.newArrayList(userRepository.findAll());
     }
 }

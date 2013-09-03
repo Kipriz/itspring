@@ -24,6 +24,12 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <script>
+        var Global = {}
+        Global.contextPath = "${pageContext.request.contextPath}"
+        Global.resources = Global.contextPath + "/resources"
+    </script>
     
 </head>
 <body>
@@ -62,12 +68,12 @@
 	<!-- End of page content -->
 	<tiles:insertAttribute name="footer"  defaultValue="" />
 	
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+	<script src="<c:url value="/resources/js/third-party/jquery/1.10.2/jquery-min.js" />"></script>
+    <script src="<c:url value="/resources/js/third-party/bootstrap/bootstrap.min.js" />"></script>
 
     <tilesx:useAttribute id="scripts" name="scripts" classname="java.util.List" ignore="true"/>
     <c:forEach var="script" items="${scripts}">
-        <script src="<c:url value="/resources/coffee/js/${script}"/>"></script>
+        <script src="<c:url value="/resources/${script}"/>"></script>
     </c:forEach>
 
 </body>

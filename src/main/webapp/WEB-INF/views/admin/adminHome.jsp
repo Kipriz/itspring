@@ -4,6 +4,7 @@
 
 <security:authentication property="principal.username" var="username"/>
 
-<p>
-    <s:message code="view.index.message.hello" arguments="${username}"/>
-</p>
+<div ng-app="AdminApp" ng-controller="AdminCtrl">
+    <div ng-bind="greet"></div>
+    <div ng-view></div>
+</div>
