@@ -19,7 +19,7 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Principal principal, Model model) {
         if (principal == null) {
-            return "index";
+            return "home/index";
         } else {
             return "redirect:/chooseHome";
         }

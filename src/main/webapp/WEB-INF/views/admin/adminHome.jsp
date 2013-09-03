@@ -5,6 +5,5 @@
 <security:authentication property="principal.username" var="username"/>
 
 <div ng-app="AdminApp" ng-controller="AdminCtrl">
-    <div ng-bind="greet"></div>
     <div ng-view></div>
 </div>
