@@ -1,10 +1,8 @@
-package itspring.controllers.model;
+package itspring.model;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
 import itspring.domain.Role;
 import itspring.domain.User;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +12,16 @@ import java.util.List;
  */
 public class UserModel {
     private Long id;
+
+    @NotEmpty
     private String name;
+
     private String password;
+    
+    @NotEmpty
     private String login;
 
+    @NotEmpty
     private List<RoleModel> roles;
 
     public UserModel() {

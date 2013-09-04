@@ -56,4 +56,11 @@ app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, User, 
   $scope.save = () ->
     roles = $filter('filter')($scope.roles, {checked: true})
     $scope.user.roles = roles
-    $scope.user.$save()
+    $scope.user.$save(
+      (data) ->
+        alert "Success"
+      (exception) ->
+        switch (exception.status)
+          when 422 then $scope.errors = exception.data
+          else $scope.severeError = true
+    )

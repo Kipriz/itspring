@@ -2,6 +2,17 @@
 
 <h2><s:message code="view.admin.user.edit"/></h2>
 
+<div class="alert alert-danger" ng-show="severeError">
+    <s:message code="view.admin.user.severe_error"/>
+</div>
+
+<div class="alert alert-warning" ng-show="errors">
+    <p><strong><s:message code="view.admin.user.errors"/></strong></p>
+    <ul>
+        <li ng-repeat="error in errors">{{error.message}}</li>
+    </ul>
+</div>
+
 <form class="form-horizontal" role="form" name="userForm" novalidate>
     <input type="hidden" name="user.id"/>
     <div class="form-group">

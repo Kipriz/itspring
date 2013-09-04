@@ -1,4 +1,4 @@
-package itspring.controllers.model;
+package itspring.model;
 
 import itspring.domain.Role;
 

@@ -2,10 +2,22 @@ package itspring.config;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.feed.AtomFeedHttpMessageConverter;
+import org.springframework.http.converter.feed.RssChannelHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
+import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
+import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.Validator;
@@ -16,6 +28,8 @@ import org.springframework.web.method.support.*;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.tiles3.*;
+
+import javax.xml.transform.Source;
 
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
@@ -78,8 +92,24 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 	protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		argumentResolvers.add(new UserDetailsHandlerMethodArgumentResolver());
 	}
-	
-	// custom argument resolver inner classes
+
+    @Override
+    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
+        stringConverter.setWriteAcceptCharset(false);
+
+        converters.add(new ByteArrayHttpMessageConverter());
+        converters.add(stringConverter);
+        converters.add(new ResourceHttpMessageConverter());
+        converters.add(new SourceHttpMessageConverter<Source>());
+        converters.add(new AllEncompassingFormHttpMessageConverter());
+
+        MappingJackson2HttpMessageConverter jacksonConverter = new MappingJackson2HttpMessageConverter();
+        jacksonConverter.getObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        converters.add(jacksonConverter);
+    }
+
+    // custom argument resolver inner classes
 
 	private static class UserDetailsHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 

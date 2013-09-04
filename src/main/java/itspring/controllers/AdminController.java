@@ -1,19 +1,26 @@
 package itspring.controllers;
 
 import com.google.common.collect.Lists;
-import itspring.controllers.model.UserModel;
+import itspring.model.ErrorModel;
+import itspring.model.UserModel;
 import itspring.domain.Role;
 import itspring.domain.User;
 import itspring.repositories.RoleRepository;
-import itspring.repositories.UserRepository;
 import itspring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +37,9 @@ public class AdminController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    MessageSource messageSource;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String adminHome(User user, Model model) {
@@ -48,7 +58,7 @@ public class AdminController {
 
     @RequestMapping(value = "/api/users", method = RequestMethod.POST)
     @ResponseBody
-    public UserModel updateUser(@RequestBody UserModel userModel) {
+    public UserModel updateUser(@RequestBody @Valid UserModel userModel) {
 
         return userModel;
     }
@@ -63,6 +73,25 @@ public class AdminController {
     @ResponseBody
     public List<Role> getRoles() {
         return Lists.newArrayList(roleRepository.findAll());
+    }
+
+
+    /* Validation expcetion handler */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ResponseBody
+    public List<ErrorModel> failedValidation(MethodArgumentNotValidException ex, WebRequest request) {
+        List<ErrorModel> errors = new ArrayList<>();
+        for (ObjectError objectError : ex.getBindingResult().getAllErrors()) {
+            ErrorModel errorModel = new ErrorModel();
+            errorModel.setMessage(messageSource.getMessage(objectError.getCodes()[0], null, null));
+            if (objectError instanceof FieldError) {
+                FieldError fieldError = (FieldError) objectError;
+                errorModel.setField(fieldError.getField());
+            }
+            errors.add(errorModel);
+        }
+        return errors;
     }
 
 }
