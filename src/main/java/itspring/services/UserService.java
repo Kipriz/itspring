@@ -3,6 +3,8 @@ package itspring.services;
 import com.google.common.collect.Lists;
 import itspring.domain.User;
 import itspring.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,17 +23,20 @@ import java.util.List;
 
 public class UserService implements UserDetailsService {
 	
-    @Inject
-    private PasswordEncoder passwordEncoder;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-    @Inject
-    private UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    MessageSource messageSource;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByLogin(username);
         if (user == null) {
-            throw new UsernameNotFoundException("user not found");
+            throw new UsernameNotFoundException(messageSource.getMessage("errors.user_not_found", new Object[]{username}, null));
         }
         return user;
     }

@@ -4,7 +4,7 @@
 <form class="form-narrow form-horizontal" action='<s:url value="/j_spring_security_check"/>' method="post">
     <c:if test="${not empty param['error']}">
         <div class="alert alert-error">
-           <s:message code="view.signin.error.signin"/>
+           ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.localizedMessage}
         </div>
     </c:if>
     <fieldset>
