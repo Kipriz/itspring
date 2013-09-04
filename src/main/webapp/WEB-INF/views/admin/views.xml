@@ -8,6 +8,7 @@
         <put-list-attribute name="scripts">
             <add-attribute value="js/third-party/angular/1.2.0rc1/angular.min.js"/>
             <add-attribute value="js/third-party/angular/1.2.0rc1/angular-route.min.js"/>
+            <add-attribute value="js/third-party/angular/1.2.0rc1/angular-resource.min.js"/>
             <add-attribute value="coffee/js/adminApp.js"/>
         </put-list-attribute>
     </definition>

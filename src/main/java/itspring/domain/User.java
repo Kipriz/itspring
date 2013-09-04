@@ -79,6 +79,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<Role> getAuthorities() {
         return roles;
     }

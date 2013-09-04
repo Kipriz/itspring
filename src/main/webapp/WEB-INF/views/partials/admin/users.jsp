@@ -22,7 +22,7 @@
     </tr>
     <tr ng-repeat="user in filtered = (users | filter:userFilter)">
         <td>{{user.id}}</td>
-        <td>{{user.name}}</td>
+        <td><a href="#/users/{{user.id}}">{{user.name}}</a></td>
         <td>{{user.login}}</td>
         <td>{{user.lastLogin}}</td>
     </tr>
