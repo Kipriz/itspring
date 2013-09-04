@@ -2,6 +2,7 @@ package itspring.model;
 
 import itspring.domain.Role;
 import itspring.domain.User;
+import itspring.validator.UniqueLogin;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * @author Andrey Volkov
  */
+@UniqueLogin //unique login annotated here because we need to know both id and new login to bypass when login is not changed
 public class UserModel {
     private Long id;
 

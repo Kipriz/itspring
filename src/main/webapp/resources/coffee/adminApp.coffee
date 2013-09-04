@@ -54,6 +54,8 @@ app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, User, 
     $location.path "/users"
 
   $scope.save = () ->
+    $scope.severeError = false
+    $scope.errors = []
     roles = $filter('filter')($scope.roles, {checked: true})
     $scope.user.roles = roles
     $scope.user.$save(
