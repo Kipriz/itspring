@@ -13,6 +13,7 @@
 
         <app.version>${pom.version}</app.version>
         <app.buildNumber>1</app.buildNumber>
+        <app.env>dev</app.env>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java-version>1.7</java-version>
