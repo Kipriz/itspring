@@ -14,12 +14,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet" media="screen" />
 	<link href="<c:url value="/resources/css/core.css" />" rel="stylesheet" media="screen" />
-	
+
 	<tilesx:useAttribute id="styles" name="styles" classname="java.util.List" ignore="true" />
 	<c:forEach var="cssName" items="${styles}">
 		<link type="text/css" href="<c:url value="/resources/css/${cssName}"/>" rel="stylesheet" media="screen" />
 	</c:forEach>
-	
+
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -30,10 +30,11 @@
         Global.contextPath = "${pageContext.request.contextPath}"
         Global.resources = Global.contextPath + "/resources"
     </script>
-    
+
 </head>
 <body>
-	
+
+<div id="wrap">
 	<tiles:insertAttribute name="header"  defaultValue="" />
 	<!-- Page content -->
 	<div class="container">
@@ -65,9 +66,15 @@
 
         </div>
 	</div>
-	<!-- End of page content -->
-	<tiles:insertAttribute name="footer"  defaultValue="" />
-	
+    <div id="push"></div>
+    <!-- End of page content -->
+</div>
+<div id="footer">
+    <div class="container">
+        <tiles:insertAttribute name="footer" defaultValue=""/>
+    </div>
+</div>
+
 	<script src="<c:url value="/resources/js/third-party/jquery/1.10.2/jquery-min.js" />"></script>
     <script src="<c:url value="/resources/js/third-party/bootstrap/bootstrap.min.js" />"></script>
 

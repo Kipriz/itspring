@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.tiles3.*;
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 	
 	private static final String MESSAGE_SOURCE = "/WEB-INF/i18n/messages";
+	private static final String VERSION_SOURCE = "classpath:app";
 	private static final String TILES = "/WEB-INF/tiles/tiles.xml";
 	private static final String VIEWS = "/WEB-INF/views/**/views.xml";
 	
@@ -38,7 +39,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 	@Bean(name = "messageSource")
 	public MessageSource configureMessageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-		messageSource.setBasename(MESSAGE_SOURCE);
+		messageSource.setBasenames(MESSAGE_SOURCE, VERSION_SOURCE);
 		messageSource.setCacheSeconds(5);
         messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
