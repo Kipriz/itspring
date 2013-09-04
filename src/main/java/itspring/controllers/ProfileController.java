@@ -15,6 +15,7 @@ public class ProfileController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String adminHome(User user, Model model) {
-        return "profile";
+        model.addAttribute("user", user);
+        return "user/profile";
     }
 }

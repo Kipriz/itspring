@@ -33,6 +33,8 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    private String avatar;
+
     public User() {
     }
 
@@ -40,6 +42,13 @@ public class User implements UserDetails {
         this.login = login;
         this.password = password;
         this.name = name;
+    }
+
+    public User(String login, String password, String name, String avatar) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.avatar = avatar;
     }
 
     public Long getId() {
@@ -76,6 +85,14 @@ public class User implements UserDetails {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override

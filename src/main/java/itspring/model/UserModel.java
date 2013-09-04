@@ -23,6 +23,8 @@ public class UserModel {
     @NotEmpty
     private String login;
 
+    private String avatar;
+
     @NotEmpty
     private List<RoleModel> roles;
 
@@ -33,6 +35,7 @@ public class UserModel {
         id = user.getId();
         name = user.getName();
         login = user.getLogin();
+        avatar = user.getAvatar();
 
         roles = new ArrayList<>();
         for (Role role : user.getRoles()) {
@@ -70,6 +73,14 @@ public class UserModel {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public List<RoleModel> getRoles() {

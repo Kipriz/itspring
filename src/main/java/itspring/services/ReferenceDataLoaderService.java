@@ -52,10 +52,10 @@ public class ReferenceDataLoaderService {
     }
 
     private void loadUsers(Map<String, Role> roles) {
-        User admin = new User("admin", "admin", "Administrator");
+        User admin = new User("admin", "admin", "Administrator", "admin.jpg");
         admin.setRoles(new ArrayList<>(Arrays.asList(roles.get("ROLE_ADMIN"))));
 
-        User user = new User("user", "user", "Demo User");
+        User user = new User("user", "user", "Demo User", "user.jpg");
         user.setRoles(new ArrayList<>(Arrays.asList(roles.get("ROLE_USER"))));
 
         userService.save(admin);

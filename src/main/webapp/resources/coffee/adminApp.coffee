@@ -38,6 +38,7 @@ app.controller "UserListCtrl", ($scope, $http, User) ->
 app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, User, Role) ->
 
   $scope.user = User.get {userId: $routeParams.userId}, (user) ->
+    $scope.user.avatar = "#{Global.resources}/avatars/" + $scope.user.avatar
     $scope.roles = Role.query()
     $scope.roles.$promise.then (data) ->
       for role in $scope.roles
