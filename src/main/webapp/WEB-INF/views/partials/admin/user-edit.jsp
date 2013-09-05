@@ -70,7 +70,7 @@
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-10">
             <button type="submit" class="btn btn-primary" ng-click="save()"><s:message code="view.admin.user.save"/></button>
-            <button type="submit" class="btn btn-default" ng-click="cancel()"><s:message code="view.admin.user.cancel"/></button>
+            <button type="reset" class="btn btn-default" ng-click="cancel()"><s:message code="view.admin.user.cancel"/></button>
         </div>
     </div>
 </form>

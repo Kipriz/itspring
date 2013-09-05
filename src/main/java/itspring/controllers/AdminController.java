@@ -45,44 +45,11 @@ import java.util.UUID;
 public class AdminController {
 
     @Autowired
-    UserService userService;
-
-    @Autowired
     RoleRepository roleRepository;
-
-    @Autowired
-    MessageSource messageSource;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String adminHome(User user, Model model) {
         return "adminHome";
-    }
-
-    @RequestMapping(value = "/api/users", method = RequestMethod.GET)
-    @ResponseBody
-    public List<UserModel> getUsers() {
-        List<UserModel> users = new ArrayList<>();
-        for (User user : userService.findAll()) {
-            users.add(new UserModel(user));
-        }
-        return users;
-    }
-
-    @RequestMapping(value = "/api/users", method = RequestMethod.POST)
-    @ResponseBody
-    public UserModel updateUser(@RequestBody @Valid UserModel userModel) {
-
-        User updatedUser = userService.save(userModel);
-
-        UserModel updatedUserModel = new UserModel(updatedUser);
-
-        return updatedUserModel;
-    }
-
-    @RequestMapping(value = "/api/users/{userId}", method = RequestMethod.GET)
-    @ResponseBody
-    public UserModel getUser(@PathVariable Long userId) {
-        return new UserModel(userService.findById(userId));
     }
 
     @RequestMapping(value = "/api/roles", method = RequestMethod.GET)
@@ -90,45 +57,4 @@ public class AdminController {
     public List<Role> getRoles() {
         return Lists.newArrayList(roleRepository.findAll());
     }
-
-    @RequestMapping(value = "/api/users/{userId}/changeAvatar", method = RequestMethod.POST)
-    @ResponseBody
-    public String changeAvatar(@PathVariable Long userId,
-                               @RequestParam("file") MultipartFile file,
-                               HttpSession session) {
-        String extentsion = FilenameUtils.getExtension(file.getOriginalFilename());
-        String newFileName = UUID.randomUUID().toString() + "." + extentsion;
-        Path path = Paths.get(session.getServletContext().getRealPath("/resources/avatars/" + newFileName));
-        try {
-            Files.deleteIfExists(path);
-            Files.copy(file.getInputStream(), path);
-            User user = userService.findById(userId);
-            user.setAvatar(path.getFileName().toString());
-            user.setLastModifiedDate(new Date());
-            userService.save(user);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return file != null ? "ok" : "failed";
-    }
-
-
-    /* Validation expcetion handler */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    @ResponseBody
-    public List<ErrorModel> failedValidation(MethodArgumentNotValidException ex, WebRequest request) {
-        List<ErrorModel> errors = new ArrayList<>();
-        for (ObjectError objectError : ex.getBindingResult().getAllErrors()) {
-            ErrorModel errorModel = new ErrorModel();
-            errorModel.setMessage(messageSource.getMessage(objectError.getCodes()[0], null, null));
-            if (objectError instanceof FieldError) {
-                FieldError fieldError = (FieldError) objectError;
-                errorModel.setField(fieldError.getField());
-            }
-            errors.add(errorModel);
-        }
-        return errors;
-    }
-
 }

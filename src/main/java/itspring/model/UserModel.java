@@ -14,6 +14,8 @@ import java.util.List;
  */
 @UniqueLogin //unique login annotated here because we need to know both id and new login to bypass when login is not changed
 public class UserModel {
+    private static final String DEFAULT_AVATAR = "default.png";
+
     private Long id;
 
     @NotEmpty
@@ -34,6 +36,8 @@ public class UserModel {
 
     private Date lastModifiedDate;
 
+    private boolean enabled;
+
     @NotEmpty
     private List<RoleModel> roles;
 
@@ -44,11 +48,12 @@ public class UserModel {
         id = user.getId();
         name = user.getName();
         login = user.getLogin();
-        avatar = user.getAvatar();
+        avatar = user.getAvatar() != null ? user.getAvatar() : DEFAULT_AVATAR;
         lastLogin = user.getLastLoginDate();
         online = user.isOnline();
         createdDate = user.getCreatedDate();
         lastModifiedDate = user.getLastModifiedDate();
+        enabled = user.isEnabled();
 
         roles = new ArrayList<>();
         for (Role role : user.getRoles()) {
@@ -126,6 +131,14 @@ public class UserModel {
 
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public List<RoleModel> getRoles() {

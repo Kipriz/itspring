@@ -41,6 +41,8 @@ public class User implements UserDetails {
 
     private Date lastModifiedDate;
 
+    private boolean enabled = true;
+
     @PrePersist
     private void setCreatedDate() {
         createdDate = new Date();
@@ -169,9 +171,13 @@ public class User implements UserDetails {
         return true;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
     public boolean hasRole(final String roleCode) {

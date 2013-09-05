@@ -109,4 +109,20 @@ public class UserService implements UserDetailsService {
     public User findById(Long userId) {
         return userRepository.findOne(userId);
     }
+
+    public User disableUser(Long userId) {
+        User user = userRepository.findOne(userId);
+        user.setEnabled(false);
+        return save(user);
+    }
+
+    public User enableUser(Long userId) {
+        User user = userRepository.findOne(userId);
+        user.setEnabled(true);
+        return save(user);
+    }
+
+    public void deleteUser(Long userId) {
+        userRepository.delete(userId);
+    }
 }

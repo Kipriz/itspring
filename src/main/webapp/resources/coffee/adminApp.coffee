@@ -21,6 +21,12 @@ app.factory "User", ($resource) ->
       method: 'GET'
       url: "#{Global.contextPath}/admin/api/users"
       isArray: true
+    disable:
+      method: 'POST',
+      url: "#{Global.contextPath}/admin/api/users/disable"
+    enable:
+      method: 'POST',
+      url: "#{Global.contextPath}/admin/api/users/enable"
   }
 
 app.factory "Role", ($resource) ->
@@ -36,7 +42,6 @@ app.controller "AdminCtrl", ($scope) ->
 
 app.controller "UserListCtrl", ($scope, $http, User) ->
   $scope.dateFormat = 'yyyy-MM-dd HH:mm:ss Z'
-
   $scope.users = User.query()
 
 
@@ -83,7 +88,7 @@ app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, $http,
         if $scope.files
           $scope.uploadAvatar(data.id, nextAction)
         else
-          nextAction
+          nextAction()
       (exception) ->
         switch (exception.status)
           when 422 then $scope.errors = exception.data
@@ -132,3 +137,17 @@ app.controller "UserViewCtrl", ($scope, $routeParams, $location, $filter, $http,
 
   $scope.cancel = () ->
     $location.path "/users"
+
+  $scope.disableUser = () ->
+    User.disable {id: $scope.user.id}, (data) ->
+      $scope.user.enabled = false
+
+  $scope.enableUser = () ->
+    User.enable {id: $scope.user.id}, (data) ->
+      $scope.user.enabled = true
+
+  $scope.deleteUser = () ->
+    if (confirm("Are you sure?"))
+      User.delete {id: $scope.user.id}, (data) ->
+        $location.path "/users"
+
