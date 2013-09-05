@@ -21,8 +21,9 @@ public class SuccessfulAuthenticationListener implements ApplicationListener<Aut
     @Override
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
         User user = (User) ((Authentication) event.getSource()).getPrincipal();
-        user.setOnline(true);
-        user.setLastLoginData(new Date());
-        userService.save(user);
+        User fromDb = userService.findById(user.getId());
+        fromDb.setOnline(true);
+        fromDb.setLastLoginData(new Date());
+        userService.save(fromDb);
     }
 }

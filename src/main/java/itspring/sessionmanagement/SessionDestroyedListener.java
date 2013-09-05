@@ -23,8 +23,9 @@ public class SessionDestroyedListener implements ApplicationListener<HttpSession
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof User) {
             User user = (User) authentication.getPrincipal();
-            user.setOnline(false);
-            userService.save(user);
+            User fromDb = userService.findById(user.getId());
+            fromDb.setOnline(false);
+            userService.save(fromDb);
         }
     }
 }
