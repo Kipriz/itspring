@@ -6,10 +6,11 @@
 <p class="pull-right">
     <button type="button" class="btn btn-primary"><s:message code="view.admin.users.add_user"/></button>
 </p>
-<p class="pull-left">
+<div>
     <label for="userSearch"><s:message code="view.admin.users.search"/>:</label>
     <input type="text" name="userSearch" id="userSearch" ng-model="userFilter" class="form-control" style="width: auto; display: inline" placeholder="<s:message code="view.admin.users.search.placeholder"/>"/>
-</p>
+    <label style="padding: 0 10px;"><input type="checkbox" name="onlineOnly" id="onlyOnly" ng-model="onlineOnlyFilter.online"/> <s:message code="view.admin.users.table.online_only"/></label>
+</div>
 </div>
 
 <table class="table table-hover">
@@ -21,7 +22,7 @@
         <th><s:message code="view.admin.users.table.last_login"/></th>
         <th><s:message code="view.admin.users.table.online"/></th>
     </tr>
-    <tr ng-repeat="user in filtered = (users | filter:userFilter)">
+    <tr ng-repeat="user in filtered = (users | filter:userFilter | filter:onlineOnlyFilter)">
         <td>{{user.id}}</td>
         <td><a href="#/users/{{user.id}}">{{user.name}}</a></td>
         <td>{{user.login}}</td>
