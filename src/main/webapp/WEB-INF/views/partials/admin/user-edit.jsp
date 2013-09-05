@@ -1,7 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
-<h2><s:message code="view.admin.user.edit"/></h2>
+<h2 ng-show="user.id != 0"><s:message code="view.admin.user.edit"/></h2>
+<h2 ng-show="user.id == 0"><s:message code="view.admin.user.add"/></h2>
 
 <div class="alert alert-danger" ng-show="severeError">
     <s:message code="view.admin.user.severe_error"/>
@@ -42,7 +43,7 @@
         <label for="password" class="col-lg-2 control-label"><s:message code="label.password"/></label>
 
         <div class="col-lg-10">
-            <input type="password" class="form-control" id="password" name="user.password" placeholder="<s:message code="label.password"/>">
+            <input type="password" class="form-control" id="password" name="user.password" placeholder="<s:message code="label.password"/>" ng-model="user.password">
         </div>
     </div>
     <div class="form-group">

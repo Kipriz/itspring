@@ -1,8 +1,11 @@
 package itspring.services;
 
 import com.google.common.collect.Lists;
+import itspring.domain.Role;
 import itspring.domain.User;
+import itspring.model.RoleModel;
 import itspring.model.UserModel;
+import itspring.repositories.RoleRepository;
 import itspring.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -27,6 +30,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Autowired
     MessageSource messageSource;
@@ -54,9 +60,46 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User save(UserModel user) {
-//        user.setLastModifiedDate(new Date());
-        return null;
+    public User save(UserModel userModel) {
+        User user;
+        if (userModel.getId() == null || userModel.getId() == 0) {
+            user = createNewUser(userModel);
+        } else {
+            user = updateUser(userModel);
+        }
+        user.setLastModifiedDate(new Date());
+        return userRepository.save(user);
+    }
+
+    private User updateUser(UserModel userModel) {
+        User fromDb = userRepository.findOne(userModel.getId());
+        populateUserFromModel(fromDb, userModel);
+
+        return fromDb;
+    }
+
+    private User createNewUser(UserModel userModel) {
+        User user = new User();
+        populateUserFromModel(user, userModel);
+        return user;
+    }
+
+    private User populateUserFromModel(User user, UserModel userModel) {
+        user.setLogin(userModel.getLogin());
+        if (userModel.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(userModel.getPassword()));
+        }
+        user.setName(userModel.getName());
+
+        List<Role> newRoles = new ArrayList<>();
+        for (RoleModel roleModel : userModel.getRoles()) {
+            Role role = roleRepository.findOne(roleModel.getId());
+            newRoles.add(role);
+        }
+
+        user.setRoles(newRoles);
+
+        return user;
     }
 
     public List<User> findAll() {

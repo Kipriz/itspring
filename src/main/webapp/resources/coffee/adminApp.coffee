@@ -42,13 +42,24 @@ app.controller "UserListCtrl", ($scope, $http, User) ->
 
 
 app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, $http, User, Role) ->
-
-  $scope.user = User.get {userId: $routeParams.userId}, (user) ->
-    $scope.user.avatar = "#{Global.resources}/avatars/" + $scope.user.avatar
+  if $routeParams.userId != "0"
+  # load existing user
+    $scope.user = User.get {userId: $routeParams.userId}, (user) ->
+      $scope.user.avatar = "#{Global.resources}/avatars/" + $scope.user.avatar
+      $scope.roles = Role.query()
+      $scope.roles.$promise.then (data) ->
+        for role in $scope.roles
+          role.checked = $scope.hasRole(user, role)
+  else
+  # create new user
+    user = new User()
+    user.avatar = "#{Global.resources}/avatars/default.png"
+    user.id = 0
+    $scope.user = user
     $scope.roles = Role.query()
     $scope.roles.$promise.then (data) ->
       for role in $scope.roles
-        role.checked = $scope.hasRole(user, role)
+        role.checked = false
 
 
   $scope.hasRole = (user, role) ->
@@ -67,7 +78,7 @@ app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, $http,
     $scope.user.roles = roles
     $scope.user.$save(
       (data) ->
-        alert "Success"
+        $location.path "/users/#{data.id}"
       (exception) ->
         switch (exception.status)
           when 422 then $scope.errors = exception.data

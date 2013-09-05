@@ -62,7 +62,11 @@ public class AdminController {
     @ResponseBody
     public UserModel updateUser(@RequestBody @Valid UserModel userModel) {
 
-        return userModel;
+        User updatedUser = userService.save(userModel);
+
+        UserModel updatedUserModel = new UserModel(updatedUser);
+
+        return updatedUserModel;
     }
 
     @RequestMapping(value = "/api/users/{userId}", method = RequestMethod.GET)

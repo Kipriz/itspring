@@ -4,7 +4,7 @@
 
 <div>
 <p class="pull-right">
-    <button type="button" class="btn btn-primary"><s:message code="view.admin.users.add_user"/></button>
+    <a href="#/users/0/edit" class="btn btn-primary"><s:message code="view.admin.users.add_user"/></a>
 </p>
 <div>
     <label for="userSearch"><s:message code="view.admin.users.search"/>:</label>

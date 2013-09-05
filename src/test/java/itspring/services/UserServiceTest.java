@@ -1,6 +1,7 @@
 package itspring.services;
 
 import itspring.domain.User;
+import itspring.model.UserModel;
 import itspring.repositories.UserRepository;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class UserServiceTest {
 	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
-	public void shouldThrowExceptionWhenUserNotFound() {
+	public void should_throw_exception_when_user_not_found() {
 		// arrange
 		thrown.expect(UsernameNotFoundException.class);
 		thrown.expectMessage("user not found");
@@ -40,7 +41,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void shouldReturnUserDetails() {
+	public void should_return_user_details() {
 		// arrange
 		User demoUser = new User("user", "demo", "test user");
 

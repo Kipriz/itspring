@@ -22,11 +22,12 @@ public class UniqueLoginValidator implements ConstraintValidator<UniqueLogin, Us
 
     @Override
     public boolean isValid(UserModel userModel, ConstraintValidatorContext context) {
-        User user = userRepository.findOne(userModel.getId());
-
+        if (userModel.getId() != null && userModel.getId() != 0) {
+            User user = userRepository.findOne(userModel.getId());
         /* check that user login is the same */
-        if (user.getLogin().equals(userModel.getLogin())) {
-            return true;
+            if (user != null && user.getLogin().equals(userModel.getLogin())) {
+                return true;
+            }
         }
 
         User fromDb = userRepository.findByLogin(userModel.getLogin());
