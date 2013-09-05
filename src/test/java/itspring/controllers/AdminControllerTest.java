@@ -61,7 +61,7 @@ public class AdminControllerTest {
     }
 
     @Test
-    public void test_ome() throws Exception {
+    public void test_home() throws Exception {
         this.mockMvc.perform(get("/admin/home"))
                 .andDo(print())
                 .andExpect(status().isOk());

@@ -13,7 +13,7 @@ import javax.sql.DataSource;
  * Configuration related to development production.
  */
 @Configuration
-@Profile({"dev", "test"})
+@Profile("dev")
 @PropertySource("classpath:/hsqldb.properties")
 public class DevConfiguration {
 
