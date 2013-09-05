@@ -42,7 +42,9 @@ public class UserService implements UserDetailsService {
     }
 
     public itspring.domain.User save(itspring.domain.User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userRepository.save(user);
         return user;
     }

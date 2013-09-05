@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,13 +28,19 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String login;
 
-    @JsonIgnore
+    @JsonIgnore // keep it here just in case, but use UserModel for serialization
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     private String avatar;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastLoginData;
+
+    private boolean online;
+
 
     public User() {
     }
@@ -95,8 +102,23 @@ public class User implements UserDetails {
         this.avatar = avatar;
     }
 
+    public Date getLastLoginData() {
+        return lastLoginData;
+    }
+
+    public void setLastLoginData(Date lastLoginData) {
+        this.lastLoginData = lastLoginData;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
     @Override
-    @JsonIgnore
     public Collection<Role> getAuthorities() {
         return roles;
     }

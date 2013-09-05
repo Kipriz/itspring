@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.support.ResourcePropertySource;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -48,6 +51,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 		characterEncodingFilter.setInitParameter("forceEncoding", "true");
 		
 		servletContext.addListener(new ContextLoaderListener(context));
+        servletContext.addListener(new HttpSessionEventPublisher());
 		servletContext.setInitParameter("defaultHtmlEscape", "true");
 
         /* Spring servlet and dispatcher configuration */

@@ -6,6 +6,7 @@ import itspring.validator.UniqueLogin;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,10 @@ public class UserModel {
 
     private String avatar;
 
+    private Date lastLogin;
+
+    private boolean online;
+
     @NotEmpty
     private List<RoleModel> roles;
 
@@ -36,6 +41,8 @@ public class UserModel {
         name = user.getName();
         login = user.getLogin();
         avatar = user.getAvatar();
+        lastLogin = user.getLastLoginData();
+        online = user.isOnline();
 
         roles = new ArrayList<>();
         for (Role role : user.getRoles()) {
@@ -81,6 +88,22 @@ public class UserModel {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 
     public List<RoleModel> getRoles() {
