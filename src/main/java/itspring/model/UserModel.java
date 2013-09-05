@@ -2,6 +2,7 @@ package itspring.model;
 
 import itspring.domain.Role;
 import itspring.domain.User;
+import itspring.validator.PasswordIfNotEmpty;
 import itspring.validator.UniqueLogin;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -21,6 +22,7 @@ public class UserModel {
     @NotEmpty
     private String name;
 
+    @PasswordIfNotEmpty
     private String password;
     
     @NotEmpty
