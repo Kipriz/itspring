@@ -20,8 +20,12 @@
     <div class="form-group">
         <label for="login" class="col-lg-2 control-label"><s:message code="label.avatar"/></label>
 
-        <div class="col-lg-10" style="max-width: 300px;">
-            <img ng-src="{{user.avatar}}" class="img-responsive" alt="Responsive image">
+        <div class="col-lg-5" style="max-width: 300px;">
+            <img ng-src="{{user.avatar}}" class="img-responsive" alt="Responsive image" ng-model="file">
+        </div>
+        <div class="col-lg-5" style="max-width: 500px;">
+            <input type="file" name="avatar" id="avatar" onchange="angular.element(this).scope().setFiles(this.files)"/>
+            <button ng-click="changeAvatar()" class="btn btn-primary"><s:message code="view.admin.user.change_avatar"/></button>
         </div>
     </div>
 

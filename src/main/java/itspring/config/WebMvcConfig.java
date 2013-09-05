@@ -25,6 +25,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.*;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.tiles3.*;
@@ -70,8 +72,15 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 		configurer.setDefinitions(new String[] {TILES, VIEWS});
 		return configurer;
 	}
-	
-	@Override
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+
+        return multipartResolver;
+    }
+
+    @Override
 	public Validator getValidator() {
 		LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
 		validator.setValidationMessageSource(configureMessageSource());

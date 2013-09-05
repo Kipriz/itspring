@@ -23,7 +23,7 @@ public class SuccessfulAuthenticationListener implements ApplicationListener<Aut
         User user = (User) ((Authentication) event.getSource()).getPrincipal();
         User fromDb = userService.findById(user.getId());
         fromDb.setOnline(true);
-        fromDb.setLastLoginData(new Date());
+        fromDb.setLastLoginDate(new Date());
         userService.save(fromDb);
     }
 }

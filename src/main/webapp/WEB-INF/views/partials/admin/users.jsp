@@ -25,7 +25,7 @@
         <td>{{user.id}}</td>
         <td><a href="#/users/{{user.id}}">{{user.name}}</a></td>
         <td>{{user.login}}</td>
-        <td>{{user.lastLogin | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+        <td>{{user.lastLogin | date:dateFormat}}</td>
         <td><input type="checkbox" name="user.online" id="user.online" ng-checked="user.online" disabled/></td>
     </tr>
     </thead>

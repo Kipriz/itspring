@@ -1,13 +1,9 @@
 package itspring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -37,9 +33,19 @@ public class User implements UserDetails {
     private String avatar;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastLoginData;
+    private Date lastLoginDate;
 
     private boolean online;
+
+    private Date createdDate;
+
+    private Date lastModifiedDate;
+
+    @PrePersist
+    private void setCreatedDate() {
+        createdDate = new Date();
+        lastModifiedDate = new Date();
+    }
 
 
     public User() {
@@ -102,12 +108,12 @@ public class User implements UserDetails {
         this.avatar = avatar;
     }
 
-    public Date getLastLoginData() {
-        return lastLoginData;
+    public Date getLastLoginDate() {
+        return lastLoginDate;
     }
 
-    public void setLastLoginData(Date lastLoginData) {
-        this.lastLoginData = lastLoginData;
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 
     public boolean isOnline() {
@@ -116,6 +122,22 @@ public class User implements UserDetails {
 
     public void setOnline(boolean online) {
         this.online = online;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override

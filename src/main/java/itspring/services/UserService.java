@@ -2,6 +2,7 @@ package itspring.services;
 
 import com.google.common.collect.Lists;
 import itspring.domain.User;
+import itspring.model.UserModel;
 import itspring.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -17,10 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class UserService implements UserDetailsService {
 	
@@ -43,12 +41,22 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public itspring.domain.User save(itspring.domain.User user) {
-        if (user.getPassword() != null) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Transactional
+    public User save(User user, String password) {
+        if (password != null) {
+            user.setPassword(passwordEncoder.encode(password));
         }
-        userRepository.save(user);
-        return user;
+        return this.save(user);
+    }
+
+    @Transactional
+    public User save(UserModel user) {
+//        user.setLastModifiedDate(new Date());
+        return null;
     }
 
     public List<User> findAll() {

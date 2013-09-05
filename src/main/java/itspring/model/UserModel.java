@@ -30,6 +30,10 @@ public class UserModel {
 
     private boolean online;
 
+    private Date createdDate;
+
+    private Date lastModifiedDate;
+
     @NotEmpty
     private List<RoleModel> roles;
 
@@ -41,8 +45,10 @@ public class UserModel {
         name = user.getName();
         login = user.getLogin();
         avatar = user.getAvatar();
-        lastLogin = user.getLastLoginData();
+        lastLogin = user.getLastLoginDate();
         online = user.isOnline();
+        createdDate = user.getCreatedDate();
+        lastModifiedDate = user.getLastModifiedDate();
 
         roles = new ArrayList<>();
         for (Role role : user.getRoles()) {
@@ -104,6 +110,22 @@ public class UserModel {
 
     public void setOnline(boolean online) {
         this.online = online;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     public List<RoleModel> getRoles() {

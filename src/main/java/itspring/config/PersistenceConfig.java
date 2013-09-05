@@ -35,7 +35,7 @@ public class PersistenceConfig {
 		factory.setDataSource(dataSource);
 		factory.setPackagesToScan("itspring");
 		factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		
+
 		Properties jpaProperties = new Properties();
 		jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, env.getProperty("hibernate.dialect"));
 		jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, env.getProperty("hibernate.hbm2ddl.auto"));

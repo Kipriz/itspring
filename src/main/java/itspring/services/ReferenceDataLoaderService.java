@@ -58,7 +58,7 @@ public class ReferenceDataLoaderService {
         User user = new User("user", "user", "Demo User", "user.jpg");
         user.setRoles(new ArrayList<>(Arrays.asList(roles.get("ROLE_USER"))));
 
-        userService.save(admin);
-        userService.save(user);
+        userService.save(admin, admin.getPassword());
+        userService.save(user, user.getPassword());
     }
 }

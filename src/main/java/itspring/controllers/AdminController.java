@@ -18,6 +18,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
@@ -73,6 +75,13 @@ public class AdminController {
     @ResponseBody
     public List<Role> getRoles() {
         return Lists.newArrayList(roleRepository.findAll());
+    }
+
+    @RequestMapping(value = "/api/users/{userId}/changeAvatar", method = RequestMethod.POST)
+    @ResponseBody
+    public String changeAvatar(@PathVariable Long userId,
+                               @RequestParam("file") MultipartFile file) {
+        return file != null ? "ok" : "failed";
     }
 
 

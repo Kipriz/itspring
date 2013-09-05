@@ -10,7 +10,7 @@
     <input type="hidden" name="user.id"/>
 
     <div class="form-group">
-        <label for="login" class="col-lg-2 control-label"><s:message code="label.avatar"/></label>
+        <label class="col-lg-2 control-label"><s:message code="label.avatar"/></label>
 
         <div class="col-lg-10" style="max-width: 300px;">
             <img src="<c:url value="/resources/avatars/${user.avatar}"/>" class="img-responsive" alt="Responsive image">
@@ -18,7 +18,7 @@
     </div>
 
     <div class="form-group">
-        <label for="login" class="col-lg-2 control-label"><s:message code="label.login"/></label>
+        <label class="col-lg-2 control-label"><s:message code="label.login"/></label>
 
         <div class="col-lg-10">
             <p class="form-control-static">${user.login}</p>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="form-group">
-        <label for="name" class="col-lg-2 control-label"><s:message code="label.name"/></label>
+        <label class="col-lg-2 control-label"><s:message code="label.name"/></label>
 
         <div class="col-lg-10">
             <p class="form-control-static">${user.name}</p>

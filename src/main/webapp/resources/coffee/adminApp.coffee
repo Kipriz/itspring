@@ -6,6 +6,9 @@ app.config ['$routeProvider', ($routeProvider) ->
       templateUrl: "#{Global.contextPath}/partials/admin/users.html",
       controller: 'UserListCtrl'
     .when '/users/:userId',
+      templateUrl: "#{Global.contextPath}/partials/admin/user-view.html"
+      controller: 'UserViewCtrl'
+    .when '/users/:userId/edit',
       templateUrl: "#{Global.contextPath}/partials/admin/user-edit.html"
       controller: 'UserEditCtrl'
     .otherwise
@@ -30,12 +33,15 @@ app.factory "Role", ($resource) ->
 app.controller "AdminCtrl", ($scope) ->
 
 
+
 app.controller "UserListCtrl", ($scope, $http, User) ->
+  $scope.dateFormat = 'yyyy-MM-dd HH:mm:ss Z'
+
   $scope.users = User.query()
 
 
 
-app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, User, Role) ->
+app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, $http, User, Role) ->
 
   $scope.user = User.get {userId: $routeParams.userId}, (user) ->
     $scope.user.avatar = "#{Global.resources}/avatars/" + $scope.user.avatar
@@ -67,3 +73,46 @@ app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, User, 
           when 422 then $scope.errors = exception.data
           else $scope.severeError = true
     )
+
+  $scope.setFiles = (files) ->
+    $scope.files = files
+
+  $scope.changeAvatar = () ->
+    fd = new FormData()
+    fd.append "file", $scope.files[0]
+
+    url = "#{Global.contextPath}/admin/api/users/#{$scope.user.id}/changeAvatar"
+    $http.post(
+      url,
+      fd,
+      {
+        headers: {'Content-Type': undefined }
+        transformRequest: angular.identity
+      }
+    )
+      .success ->
+        alert "Success"
+      .error (exception) ->
+        alert "Error"
+
+
+app.controller "UserViewCtrl", ($scope, $routeParams, $location, $filter, $http, User, Role) ->
+
+  $scope.dateFormat = 'yyyy-MM-dd HH:mm:ss Z'
+
+  $scope.user = User.get {userId: $routeParams.userId}, (user) ->
+    $scope.user.avatar = "#{Global.resources}/avatars/" + $scope.user.avatar
+    $scope.roles = Role.query()
+    $scope.roles.$promise.then (data) ->
+      for role in $scope.roles
+        role.checked = $scope.hasRole(user, role)
+
+
+  $scope.hasRole = (user, role) ->
+    for userRole in user.roles
+      if userRole.code == role.code
+        return true
+    return false
+
+  $scope.cancel = () ->
+    $location.path "/users"
