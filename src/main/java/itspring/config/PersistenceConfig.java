@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @EnableJpaRepositories(basePackages = {"itspring.repositories"})
 public class PersistenceConfig {
 
@@ -47,7 +47,7 @@ public class PersistenceConfig {
 
 	@Bean	
 	public PlatformTransactionManager transactionManager() {
-        return new JpaTransactionManager(entityManagerFactory());
+        return new JpaTransactionManager();
     }
 
     @Bean
