@@ -7,6 +7,8 @@ import itspring.domain.Role;
 import itspring.domain.User;
 import itspring.repositories.RoleRepository;
 import itspring.services.UserService;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -21,10 +23,18 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 
+import javax.annotation.processing.FilerException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Andrey Volkov
@@ -84,7 +94,21 @@ public class AdminController {
     @RequestMapping(value = "/api/users/{userId}/changeAvatar", method = RequestMethod.POST)
     @ResponseBody
     public String changeAvatar(@PathVariable Long userId,
-                               @RequestParam("file") MultipartFile file) {
+                               @RequestParam("file") MultipartFile file,
+                               HttpSession session) {
+        String extentsion = FilenameUtils.getExtension(file.getOriginalFilename());
+        String newFileName = UUID.randomUUID().toString() + "." + extentsion;
+        Path path = Paths.get(session.getServletContext().getRealPath("/resources/avatars/" + newFileName));
+        try {
+            Files.deleteIfExists(path);
+            Files.copy(file.getInputStream(), path);
+            User user = userService.findById(userId);
+            user.setAvatar(path.getFileName().toString());
+            user.setLastModifiedDate(new Date());
+            userService.save(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return file != null ? "ok" : "failed";
     }
 

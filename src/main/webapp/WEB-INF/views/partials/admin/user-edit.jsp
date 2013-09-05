@@ -26,7 +26,6 @@
         </div>
         <div class="col-lg-5" style="max-width: 500px;">
             <input type="file" name="avatar" id="avatar" onchange="angular.element(this).scope().setFiles(this.files)"/>
-            <button ng-click="changeAvatar()" class="btn btn-primary"><s:message code="view.admin.user.change_avatar"/></button>
         </div>
     </div>
 

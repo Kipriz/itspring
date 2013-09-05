@@ -78,7 +78,12 @@ app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, $http,
     $scope.user.roles = roles
     $scope.user.$save(
       (data) ->
-        $location.path "/users/#{data.id}"
+        nextAction = ->
+          $location.path "/users/#{data.id}"
+        if $scope.files
+          $scope.uploadAvatar(data.id, nextAction)
+        else
+          nextAction
       (exception) ->
         switch (exception.status)
           when 422 then $scope.errors = exception.data
@@ -88,11 +93,11 @@ app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, $http,
   $scope.setFiles = (files) ->
     $scope.files = files
 
-  $scope.changeAvatar = () ->
+  $scope.uploadAvatar = (id, successCallback) ->
     fd = new FormData()
     fd.append "file", $scope.files[0]
 
-    url = "#{Global.contextPath}/admin/api/users/#{$scope.user.id}/changeAvatar"
+    url = "#{Global.contextPath}/admin/api/users/#{id}/changeAvatar"
     $http.post(
       url,
       fd,
@@ -102,9 +107,9 @@ app.controller "UserEditCtrl", ($scope, $routeParams, $location, $filter, $http,
       }
     )
       .success ->
-        alert "Success"
+        successCallback()
       .error (exception) ->
-        alert "Error"
+        $scope.errors = exception.data
 
 
 app.controller "UserViewCtrl", ($scope, $routeParams, $location, $filter, $http, User, Role) ->
