@@ -43,6 +43,14 @@ app.controller "AdminCtrl", ($scope) ->
 app.controller "UserListCtrl", ($scope, $http, User) ->
   $scope.dateFormat = 'yyyy-MM-dd HH:mm:ss Z'
   $scope.users = User.query()
+  $scope.reverseOrder = false
+
+  $scope.orderBy = (column) ->
+    if $scope.orderFilter == column
+      $scope.reverseOrder = !$scope.reverseOrder
+    else
+      $scope.orderFilter = column
+      $scope.reverseOrder = false
 
 
 

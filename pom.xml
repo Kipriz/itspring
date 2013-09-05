@@ -7,12 +7,12 @@
     <groupId>itspring</groupId>
     <artifactId>itspring</artifactId>
     <packaging>war</packaging>
-    <version>1.0</version>
+    <version>1.0-beta</version>
     <name>Spring MVC Application</name>
     <properties>
 
         <app.version>${pom.version}</app.version>
-        <app.buildNumber>1</app.buildNumber>
+        <app.buildNumber>15-lucky-demo</app.buildNumber>
         <app.env>dev</app.env>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -42,3 +42,16 @@ body {
 #footer {
     background-color: #eee;
 }
+
+th a.active {
+}
+
+th a.active.asc:after {
+    padding-left: 2px;
+    content: "↓";
+}
+
+th a.active.desc:after {
+    padding-left: 2px;
+    content: "↑";
+}

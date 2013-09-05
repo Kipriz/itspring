@@ -16,13 +16,13 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <th><s:message code="view.admin.users.table.id"/></th>
-        <th><s:message code="view.admin.users.table.name"/></th>
-        <th><s:message code="view.admin.users.table.login"/></th>
-        <th><s:message code="view.admin.users.table.last_login"/></th>
-        <th><s:message code="view.admin.users.table.online"/></th>
+        <th><a href="" ng-click="orderBy('id')" ng-class="{active: orderFilter == 'id', asc: reverseOrder, desc: !reverseOrder}"><s:message code="view.admin.users.table.id"/></a></th>
+        <th><a href="" ng-click="orderBy('name')" ng-class="{active: orderFilter == 'name', asc: reverseOrder, desc: !reverseOrder}"><s:message code="view.admin.users.table.name"/></a></th>
+        <th><a href="" ng-click="orderBy('login')" ng-class="{active: orderFilter == 'login', asc: reverseOrder, desc: !reverseOrder}"><s:message code="view.admin.users.table.login"/></a></th>
+        <th><a href="" ng-click="orderBy('lastLogin')" ng-class="{active: orderFilter == 'lastLogin', asc: reverseOrder, desc: !reverseOrder}"><s:message code="view.admin.users.table.last_login"/></a></th>
+        <th><a href="" ng-click="orderBy('online')" ng-class="{active: orderFilter == 'online', asc: reverseOrder, desc: !reverseOrder}"><s:message code="view.admin.users.table.online"/></a></th>
     </tr>
-    <tr ng-repeat="user in filtered = (users | filter:userFilter | filter:onlineOnlyFilter)">
+    <tr ng-repeat="user in filtered = (users | filter:userFilter | filter:onlineOnlyFilter | orderBy:orderFilter:reverseOrder)">
         <td>{{user.id}}</td>
         <td><a href="#/users/{{user.id}}">{{user.name}}</a></td>
         <td>{{user.login}}</td>
