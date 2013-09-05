@@ -1,9 +1,7 @@
 package itspring.controllers;
 
 import itspring.domain.User;
-import org.springframework.beans.factory.annotation.Autowire;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.session.SessionRegistry;
+import itspring.model.UserModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,7 @@ public class ProfileController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String adminHome(User user, Model model) {
-        model.addAttribute("user", user);
+        model.addAttribute("user", new UserModel(user));
         return "user/profile";
     }
 }

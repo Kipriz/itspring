@@ -36,8 +36,8 @@
         <label class="col-lg-2 control-label"><s:message code="label.roles"/></label>
         <div class="col-lg-10">
             <ul class="form-control-static">
-                <c:forEach var="role" items="${user.roleNames}">
-                    <li>${role}</li>
+                <c:forEach var="role" items="${user.roles}">
+                    <li>${role.name}</li>
                 </c:forEach>
             </ul>
         </div>
